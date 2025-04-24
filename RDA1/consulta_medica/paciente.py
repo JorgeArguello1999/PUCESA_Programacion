@@ -53,8 +53,14 @@ class Paciente:
         return ""
 
     # Citas medicas
-    def agregar_cita(self, consulta: Consulta):
-        self.citas_medicas.append(consulta.devolver())
+    def agregar_cita(self, consulta: Consulta) -> bool:
+        try:
+            self.citas_medicas.append(consulta.devolver())
+            return True
+
+        except Exception as e:
+            print(f"Error al agregar la cita medica \n {str(e)}")
+            return False
 
     # Checkear paciente 
     def check_paciente(self) -> bool:
