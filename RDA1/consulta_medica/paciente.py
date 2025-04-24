@@ -55,6 +55,12 @@ class Paciente:
     # Citas medicas
     def agregar_cita(self, consulta: Consulta):
         self.citas_medicas.append(consulta.devolver())
+
+    # Checkear paciente 
+    def check_paciente(self) -> bool:
+        if self.cedula != "" and self.tipo_sangre != "":
+            return True
+        return False
     
     # Mostrar 
     def devolver(self) -> dict:
