@@ -30,6 +30,7 @@ class Paciente:
             try:
                 int(cedula)
                 return cedula
+
             except Exception as e:
                 print("Error, solo numeros")
                 print(str(e))
