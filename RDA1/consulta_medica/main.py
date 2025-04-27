@@ -20,7 +20,7 @@ menu = f"""
 Tu eleccion: """
 
 
-while True:
+while __name__ == '__main__':
     try:
         opcion = int(input(menu))
 
