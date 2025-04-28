@@ -1,29 +1,56 @@
 from libro import Book, History
 
+database = []
+
 def add_book() -> None:
     "Interface to add a new book"
     try:
-        title = input("Enter the book title: ")
-        author = input("Enter the author: ")
-        isbn = input("Enter the ISBN: ")
-        genero = input("Enter the gender: ")
-        book = Book(title, author, isbn, genero)
-        print(f"Book added: {book.get()}")
+        print()
+        book = Book(
+            title=input("Enter the book title: "),
+            author=input("Enter the author: "),
+            isbn=input("Enter the ISBN: "),
+            genero=input("Enter the gender: ")
+        )
+        print(f"Book added: {book}")
+        database.append(book)
 
     except ValueError as e:
         print(f"Error: {e}")
 
-def add_history() -> None:  # Work here
+def add_history() -> None:  
     "Interface to add a new history entry"
-    date = input("Enter the date (YYYY-MM-DD): ")
-    action = input("Enter the action (1 for Active, 0 for Inactive): ")
-    history = History(date, action)
-    print(f"History added: {history.get()}")
+    try:
+        print()
+        title = input("Enter the book title: ")
+        for i in database:
+            if i.title == title:
+                i.add_history(History(
+                    action=bool(int(input("Enter the action (1 for Active, 0 for Inactive): "))),
+                    date=input("Enter the date (YYYY-MM-DD): ")
+                ))
+                print(f"\nHistory added to book: \n{i.get()}")
+                break
+            print("\nBook not found.")
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return False
 
 def search_book() -> None:
     "Interface to search for a book"
-    search_term = input("Enter the search term (title/author): ")
-    print(f"Searching for books with term: {search_term}")
+    search_term = input("Enter the search term (title): ")
+    print(f"Searching for books with term: {search_term}\n")
+    for i in database:
+        if search_term.lower() in i.title.lower():
+            book = i
+            print(f"\nBook found: {book}")
+            for history in book.get()["history"]:
+                print(history)
+            break
 
 def list_books() -> None:
-    pass
+    "Interface to list all books"
+    print("Listing all books:")
+    for i in database:
+        print(f"{i}")

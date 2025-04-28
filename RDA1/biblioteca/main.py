@@ -40,6 +40,8 @@ while __name__ == "__main__":
 
         else:
             print("Invalid option. Please try again.")
-            
+
     except ValueError as e:
         print(f"Error: {e}")
+        
+    print("\n"*10)

@@ -23,6 +23,13 @@ class History:
             "date": self.date,
             "action": self.action
         }
+    
+    def __repr__(self):
+        """
+        Return a string representation of the History object for debugging.
+        :return: String representation of the history
+        """
+        return f"History(date={self.date}, action={self.action})"
 
 class Book:
     history = []
@@ -40,6 +47,7 @@ class Book:
             self.author = str(author)
             self.isbn = str(isbn)
             self.genero = str(genero)
+
         except ValueError as e:
             print(f"Error initializing Book: {e}")
             raise
@@ -75,5 +83,11 @@ class Book:
         Return a string representation of the Book object.
         :return: String representation of the book
         """
-        return f"Title: {self.title}, Author: {self.author}, ISBN: {self.isbn}, Genre: {self.genero}, History: {self.history}"
-    
+        return f"Title: {self.title}, Author: {self.author}, ISBN: {self.isbn}, Genre: {self.genero}"
+
+    def __repr__(self) -> str:
+        """
+        Return a string representation of the Book object for debugging.
+        :return: String representation of the book
+        """
+        return f"Book({self.title}, {self.author}, {self.isbn}, {self.genero})"
