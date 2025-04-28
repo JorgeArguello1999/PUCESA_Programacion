@@ -28,10 +28,11 @@ def add_history() -> None:
                 i.add_history(History(
                     action=bool(int(input("Enter the action (1 for Active, 0 for Inactive): "))),
                     date=input("Enter the date (YYYY-MM-DD): ")
-                ))
+                ).get())
                 print(f"\nHistory added to book: \n{i.get()}")
+            else:
                 break
-            print("\nBook not found.")
+                print("\nBook not found.")
 
     except Exception as e:
         print(f"Error: {e}")

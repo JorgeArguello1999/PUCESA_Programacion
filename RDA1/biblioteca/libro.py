@@ -33,6 +33,7 @@ class History:
 
 class Book:
     history = []
+    title = ""
 
     def __init__(self, title:str, author:str, isbn:str, genero:str) -> None:
         """
@@ -47,6 +48,7 @@ class Book:
             self.author = str(author)
             self.isbn = str(isbn)
             self.genero = str(genero)
+            self.history = []
 
         except ValueError as e:
             print(f"Error initializing Book: {e}")
