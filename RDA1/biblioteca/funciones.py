@@ -12,7 +12,7 @@ def add_book() -> None:
             isbn=input("Enter the ISBN: "),
             genero=input("Enter the gender: ")
         )
-        print(f"Book added: {book}")
+        print(f"\nBook added: {book}")
         database.append(book)
 
     except ValueError as e:
@@ -31,8 +31,8 @@ def add_history() -> None:
                 ).get())
                 print(f"\nHistory added to book: \n{i.get()}")
             else:
-                break
                 print("\nBook not found.")
+                break
 
     except Exception as e:
         print(f"Error: {e}")
@@ -53,5 +53,6 @@ def search_book() -> None:
 def list_books() -> None:
     "Interface to list all books"
     print("Listing all books:")
+    print()
     for i in database:
         print(f"{i}")
