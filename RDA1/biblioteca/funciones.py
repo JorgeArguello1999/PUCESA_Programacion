@@ -23,6 +23,8 @@ def add_history() -> None:
     try:
         print()
         title = input("Enter the book title: ")
+
+        found = False
         for i in database:
             if i.title == title:
                 i.add_history(History(
@@ -30,10 +32,12 @@ def add_history() -> None:
                     date=input("Enter the date (YYYY-MM-DD): ")
                 ).get())
                 print(f"\nHistory added to book: \n{i.get()}")
-            else:
-                print("\nBook not found.")
+                found = True
                 break
-
+        
+        if not found:
+            print(f"Book with title '{title}' not found in the database.")
+            
     except Exception as e:
         print(f"Error: {e}")
         return False
