@@ -44,10 +44,10 @@ def add_history() -> None:
 
 def search_book() -> None:
     "Interface to search for a book"
-    search_term = input("Enter the search term (title): ")
+    search_term = input("Enter the search term (title / ISBN): ")
     print(f"Searching for books with term: {search_term}\n")
     for i in database:
-        if search_term.lower() in i.title.lower():
+        if search_term.lower() in i.title.lower() or search_term.lower() in i.isbn.lower():
             book = i
             print(f"\nBook found: {book}")
             for history in book.get()["history"]:
