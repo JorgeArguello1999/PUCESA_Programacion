@@ -7,6 +7,9 @@ class History:
         :param date: Date of the action or by default the current date
         :param action: Active(1) or Inactive action
         """
+        if len(date) > 10:
+            raise ValueError("Date format is incorrect. Use YYYY-MM-DD.")
+            
         try:
             self.date = str(date) or datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             self.action = bool(action)
@@ -43,6 +46,9 @@ class Book:
         :param isbn: ISBN of the book
         :param genero: Genre of the book
         """
+        if not all([title, author, isbn, genero]):
+            raise ValueError("All fields are required.")
+        
         try: 
             self.title = str(title)
             self.author = str(author)
