@@ -1,3 +1,10 @@
+from funciones import (
+    add_book,
+    add_history,
+    search_book,
+    list_books,
+)
+
 separator = "-"*33
 
 menu = f"""
@@ -16,26 +23,16 @@ while __name__ == "__main__":
     try:
         choice = int(input(menu))
         if choice == 1:
-            title = input("Enter the book title: ")
-            author = input("Enter the author: ")
-            isbn = input("Enter the ISBN: ")
-            genero = input("Enter the gender: ")
-            # book = Book(title, author, isbn, genero)
-            # print(f"Book added: {book.get()}")
+            add_book()
 
         elif choice == 2:
-            date = input("Enter the date (YYYY-MM-DD): ")
-            action = input("Enter the action (1 for Active, 0 for Inactive): ")
-            # history = History(date, action)
-            # print(f"History added: {history.get()}")
+            add_history()
 
         elif choice == 3:
-            search_term = input("Enter the search term (title/author): ")
-            # Implement search logic here
+            search_book()
 
         elif choice == 4:
-            pass
-            # Implement list all books logic here
+            list_books()
 
         elif choice == 5:
             print("Exiting the program.")
@@ -43,5 +40,6 @@ while __name__ == "__main__":
 
         else:
             print("Invalid option. Please try again.")
+            
     except ValueError as e:
         print(f"Error: {e}")
