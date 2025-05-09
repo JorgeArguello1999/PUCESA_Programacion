@@ -40,7 +40,7 @@ while True:
 
         pos = busqueda_binaria(numeros, buscar)
         if pos[0]:
-            print(f"'{buscar}' se encontró en la posición {pos[2]}, con {pos[1]} iteraciones.")
+            print(f"'{buscar}' se encontró en la posición {pos[1]}, con {pos[2]} iteraciones.")
         else:
             print(f"'{buscar}' no se encuentra en la lista.")
 
