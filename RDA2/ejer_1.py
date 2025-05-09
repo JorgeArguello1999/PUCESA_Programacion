@@ -17,7 +17,7 @@ def busqueda_lineal(lista: list, objetivo: str, contador: int = 0) -> list:
     return [False, -1, contador]
 
 
-frutas = ["Manzana", "Banana", "Naranja", "Sandía", "Melón", "Uva", "Piña", "Mango", "Papaya", "Fresa"]
+frutas = ["Manzana", "Banana", "Naranja", "Sandia", "Melon", "Uva", "Melocoton", "Mango", "Papaya", "Fresa"]
 
 while True:
     print('\n' * 8)
@@ -25,7 +25,7 @@ while True:
     try:
         print("Lista de frutas:", frutas)
         print("Para salir del programa, presione Ctrl+C.")
-        buscar = input("Ingrese el nombre de la fruta a buscar: ").strip()
+        buscar = input("Ingrese el nombre de la fruta a buscar: ").strip().title()
 
         resultado = busqueda_lineal(frutas, buscar)
         if resultado[0]:
