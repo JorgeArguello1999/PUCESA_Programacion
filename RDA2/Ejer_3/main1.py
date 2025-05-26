@@ -127,6 +127,21 @@ def imprimir_salida(algoritmo: str, lista_original: list, algoritmo_func) -> Non
     print(f'{algoritmo} Sort: {ordenada}')
     print(f'Comparaciones: {comp}, Intercambios: {interc}')
 
+def ejecutar_y_mostrar_algoritmo(nombre_algoritmo: str, lista_original: list, algoritmo_func, resultados_dict: dict) -> None:
+    """
+    Ejecuta un algoritmo de ordenamiento, imprime sus resultados y los almacena en un diccionario.
+    :param nombre_algoritmo: Nombre del algoritmo de ordenamiento (ej. "Bubble").
+    :param lista_original: La lista original que se va a ordenar.
+    :param algoritmo_func: La función del algoritmo de ordenamiento a ejecutar.
+    :param resultados_dict: El diccionario donde se almacenarán los resultados.
+    """
+    lista_copia = lista_original.copy() # Se crea una copia para cada algoritmo
+    ordenada, comp, interc = algoritmo_func(lista_copia)
+    print(f'{nombre_algoritmo} Sort: {ordenada}')
+    print(f'Comparaciones: {comp}, Intercambios: {interc}')
+    resultados_dict[nombre_algoritmo] = (ordenada, comp, interc)
+    print("--------------------------")
+
 if __name__ == '__main__':
     # Parte 1: Implementación y ejecución con diferentes tipos de listas
 
@@ -169,29 +184,10 @@ if __name__ == '__main__':
     print("\nResultados detallados por algoritmo:")
     print("-----------------------------------")
 
-    # Bubble Sort
-    lista_bubble = productos.copy()
-    ordenada_bubble, comp_bubble, interc_bubble = bubble_sort(lista_bubble)
-    print(f'Bubble Sort: {ordenada_bubble}')
-    print(f'Comparaciones: {comp_bubble}, Intercambios: {interc_bubble}')
-    resultados_por_algoritmo["Bubble"] = (ordenada_bubble, comp_bubble, interc_bubble)
-    print("--------------------------")
-
-    # Insertion Sort
-    lista_insertion = productos.copy()
-    ordenada_insertion, comp_insertion, interc_insertion = insertion_sort(lista_insertion)
-    print(f'Insertion Sort: {ordenada_insertion}')
-    print(f'Comparaciones: {comp_insertion}, Intercambios: {interc_insertion}')
-    resultados_por_algoritmo["Insertion"] = (ordenada_insertion, comp_insertion, interc_insertion)
-    print("--------------------------")
-
-    # Selection Sort
-    lista_selection = productos.copy()
-    ordenada_selection, comp_selection, interc_selection = selection_sort(lista_selection)
-    print(f'Selection Sort: {ordenada_selection}')
-    print(f'Comparaciones: {comp_selection}, Intercambios: {interc_selection}')
-    resultados_por_algoritmo["Selection"] = (ordenada_selection, comp_selection, interc_selection)
-    print("--------------------------")
+    # Ejecutar y mostrar resultados para cada algoritmo usando la nueva función
+    ejecutar_y_mostrar_algoritmo("Bubble", productos, bubble_sort, resultados_por_algoritmo)
+    ejecutar_y_mostrar_algoritmo("Insertion", productos, insertion_sort, resultados_por_algoritmo)
+    ejecutar_y_mostrar_algoritmo("Selection", productos, selection_sort, resultados_por_algoritmo)
 
     print("\n--- Resumen de rendimientos ---")
     print(f"{'Algoritmo':<10} {'Comparaciones':<15} {'Intercambios'}")
