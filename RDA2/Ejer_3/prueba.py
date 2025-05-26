@@ -201,56 +201,27 @@ if __name__ == '__main__':
 
     # Parte 2: Explicación y análisis (en una celda Markdown, aquí como comentario extenso)
 
-    """
-    ## Explicación y análisis de los Métodos de Ordenamiento
+"""
+# ¿Cómo funciona cada algoritmo?
+- Bubble Sort: Compara y "burbujea" los elementos grandes al final, intercambiando pares adyacentes repetidamente hasta que la lista está ordenada. Es simple pero ineficiente.
 
-    ### ¿Cómo funciona cada algoritmo?
+- Insertion Sort: Construye la lista ordenada un elemento a la vez, insertando cada nuevo elemento en su posición correcta dentro de la parte ya ordenada. Eficiente para listas pequeñas o casi ordenadas.
 
-    * Bubble Sort (Ordenamiento de Burbuja):
-        Este algoritmo funciona "burbujeando" los elementos más grandes a su posición correcta al final de la lista en cada pasada. Recorre la lista repetidamente, comparando cada par de elementos adyacentes y los intercambia si están en el orden incorrecto. Este proceso se repite hasta que ya no se realizan intercambios en una pasada completa, lo que significa que la lista está ordenada. Es intuitivo pero generalmente ineficiente para listas grandes.
+- Selection Sort: Encuentra el elemento más pequeño en la parte no ordenada de la lista y lo intercambia con el primer elemento de esa parte, repitiendo hasta que toda la lista está ordenada. Minimiza el número de intercambios.
 
-    * Insertion Sort (Ordenamiento por Inserción):
-        Insertion Sort construye la lista ordenada un elemento a la vez. Comienza asumiendo que el primer elemento ya está ordenado. Luego, toma cada elemento restante de la lista y lo "inserta" en su posición correcta dentro de la porción ya ordenada de la lista. Esto se hace desplazando los elementos mayores que el elemento a insertar una posición a la derecha. Es eficiente para listas pequeñas o listas que ya están casi ordenadas.
+# Comparación de Rendimientos y ¿Cuál fue más eficiente?
+Para listas pequeñas (10 elementos), la eficiencia puede variar:
 
-    * Selection Sort (Ordenamiento por Selección):
-        Selection Sort funciona dividiendo la lista en dos partes: una sublista de elementos ordenados y una sublista de elementos sin ordenar. En cada iteración, el algoritmo encuentra el elemento más pequeño (o más grande, dependiendo del orden) en la sublista no ordenada y lo intercambia con el primer elemento de la sublista no ordenada. De esta manera, el elemento mínimo se "selecciona" y se coloca en su posición final. Este proceso se repite hasta que toda la lista está ordenada.
+- Comparaciones: Bubble Sort y Selection Sort tienden a realizar más comparaciones. Insertion Sort puede ser más eficiente si la lista está parcialmente ordenada.
 
-    ### Comparación de Rendimientos: ¿Cuál fue más eficiente y por qué?
+- Intercambios: Bubble Sort realiza muchos intercambios. Insertion Sort realiza "desplazamientos". Selection Sort realiza el menor número de intercambios (N-1).
 
-    En mi caso, para una lista pequeña (10 elementos), la eficiencia puede variar ligeramente dependiendo de la disposición inicial de los números. Sin embargo, en general, observaremos patrones consistentes:
+- En general, Insertion Sort suele ser más eficiente para listas pequeñas y aleatorias. Selection Sort destaca por su bajo número de intercambios, y Bubble Sort es el menos eficiente en la mayoría de los casos.
 
-    * Comparaciones:
-        * Bubble Sort y Selection Sort tienden a realizar un número de comparaciones similar y a menudo más alto, especialmente para listas aleatorias o inversamente ordenadas. Esto se debe a sus bucles anidados que recorren una gran parte de la lista en cada iteración.
-        * Insertion Sort puede ser más eficiente en términos de comparaciones si la lista está parcialmente ordenada o es pequeña, ya que su bucle interno se detiene tan pronto como encuentra la posición correcta para el elemento.
+# ¿En qué situaciones usarías cada uno?
+- Bubble Sort: Principalmente para fines educativos debido a su simplicidad; rara vez en aplicaciones prácticas por su ineficiencia.
 
-    * Intercambios:
-        * Bubble Sort suele realizar muchos intercambios, ya que mueve los elementos paso a paso a través de la lista. Esto lo hace menos eficiente en situaciones donde los elementos están muy desordenados.
-        * Insertion Sort realiza un número de "desplazamientos" que son equivalentes a intercambios, pero a menudo son menos costosos que los intercambios directos de Bubble Sort, especialmente cuando los elementos ya están cerca de su posición final.
-        * Selection Sort realiza el menor número de intercambios, ya que solo realiza un intercambio por cada pasada del bucle exterior (es decir, N-1 intercambios en total para una lista de N elementos). Esto lo hace ventajoso en situaciones donde el costo de un intercambio es muy alto.
+- Insertion Sort: Ideal para listas pequeñas, listas que ya están casi ordenadas, o como parte de algoritmos de ordenamiento más complejos (híbridos). Ejemplo: ordenar una mano de cartas.
 
-    Conclusión de Eficiencia:
-    Para listas pequeñas y aleatorias, Insertion Sort a menudo muestra un buen rendimiento en términos de comparaciones y un número razonable de intercambios. Selection Sort es notable por su bajo número de intercambios, lo cual puede ser crucial en ciertas aplicaciones. Bubble Sort es casi siempre el menos eficiente de los tres para cualquier tipo de lista (excepto una lista ya ordenada, donde Insertion Sort también brilla).
-
-    ### ¿En qué situaciones usarías cada uno en la vida real o en software?
-
-    * Bubble Sort:
-        * Vida Real: Raramente se usa en la práctica debido a su ineficiencia. Podría ser útil para enseñar conceptos básicos de ordenamiento debido a su simplicidad y fácil visualización.
-        * Software: Muy limitado. Quizás en situaciones donde la simplicidad del código es la máxima prioridad y el tamaño de la lista es extremadamente pequeño (menos de 10 elementos) y el rendimiento no es crítico.
-
-    * Insertion Sort:
-        * Vida Real:
-            * Ordenando una mano de cartas: cuando recibes una nueva carta, la insertas en la posición correcta en tu mano ya ordenada.
-            * Organizar libros en un estante donde ya tienes algunos libros ordenados y añades nuevos.
-        * Software:
-            * Listas pequeñas: Es muy eficiente para listas con un número reducido de elementos.
-            * Listas casi ordenadas: Si se sabe que la lista de entrada está casi ordenada, Insertion Sort es extremadamente rápido porque realiza muy pocos desplazamientos.
-            * Como parte de algoritmos híbridos: Muchos algoritmos de ordenamiento más avanzados (como Timsort o Introsort) usan Insertion Sort para ordenar pequeñas sublistas o para la fase final del ordenamiento.
-
-    * Selection Sort:
-        * Vida Real:
-            * Encontrar el artículo más barato de un catálogo y colocarlo al principio, luego el segundo más barato, etc.
-            * Podría usarse en una competencia donde se selecciona al ganador y se le da el primer premio, luego al siguiente y así sucesivamente.
-        * Software:
-            * Cuando el costo de intercambio es muy alto: Si la escritura de datos a memoria es significativamente más costosa que la lectura (por ejemplo, en memoria flash o discos duros), Selection Sort es una buena opción porque minimiza el número de escrituras.
-            * Garantizar un número mínimo de intercambios: Si se necesita asegurar que el número de movimientos de elementos sea el menor posible, Selection Sort es el candidato.
-    """
+- Selection Sort: Útil cuando el costo de un intercambio de datos es muy alto (minimizando las escrituras) o cuando se necesita garantizar el número mínimo de movimientos de elementos.
+"""
