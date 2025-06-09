@@ -1,20 +1,3 @@
-# Aplicación de navegación con pilas 
-"""
-# Ejercicio para Resolver: Historial de Navegación con Pilas
-
-En este ejercicio implementarás un sistema básico de historial de navegación usando una pila.
-
-### Reglas:
-- Cada vez que visitas una nueva página, debes usar `append()` para agregarla a la pila.
-- Si usas "atrás", debes eliminar la última página con `pop()`.
-- Puedes consultar la página actual usando `pila[-1]`.
-- Puedes verificar si ya no hay páginas usando `len(pila) == 0`.
-
-### Objetivo:
-Simular el comportamiento de un navegador web utilizando una pila para registrar el historial.
-
-Completa el código paso a paso según las instrucciones.
-"""
 from stack import Pila
 
 historial = Pila()
@@ -72,17 +55,18 @@ def main():
             if opcion == 1:
                 pagina = input("Ingresa la URL de la nueva página: ")
                 visitar_pagina(pagina)
-            elif opcion == 2:
-                ir_atras()
-            elif opcion == 3:       
-                ver_pagina_actual()
-            elif opcion == 4:
-                ver_historial()
+
             elif opcion == 5:
                 print("Saliendo del programa...")
                 break
-            else:
-                raise ValueError("Opción no válida. Por favor, elige un número entre 1 y 5.")
+
+            elif opcion == 2: ir_atras()
+
+            elif opcion == 3: ver_pagina_actual()
+
+            elif opcion == 4: ver_historial()
+            
+            else: raise ValueError("Opción no válida. Por favor, elige un número entre 1 y 5.")
 
         except KeyboardInterrupt:
             print("\nSaliendo del programa...")
