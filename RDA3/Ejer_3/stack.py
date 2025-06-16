@@ -64,20 +64,56 @@ class Cola():
         return len(self.items) == 0
 
     def enqueue(self, item):
-        self.items.append(item)
+        """Añade un elemento a la cola manteniendo el orden de prioridad"""
+        if isinstance(item, Cliente):
+            # Insertar en la posición correcta según prioridad
+            # Prioridad 1 = más urgente, 4 = menos urgente
+            inserted = False
+            for i, cliente_actual in enumerate(self.items):
+                if item.prioridad < cliente_actual.prioridad:
+                    self.items.insert(i, item)
+                    inserted = True
+                    break
+            if not inserted:
+                self.items.append(item)
+        else:
+            # Para elementos que no son clientes, comportamiento normal
+            self.items.append(item)
 
     def dequeue(self):
+        """Elimina y retorna el elemento con mayor prioridad (o el primero si no hay prioridades)"""
         if not self.is_empty():
             return self.items.pop(0)
         raise IndexError("dequeue from empty queue")
 
     def peek(self):
+        """Retorna el próximo elemento a ser atendido sin eliminarlo"""
         if not self.is_empty():
             return self.items[0]
         raise IndexError("peek from empty queue")
 
     def size(self):
         return len(self.items)
+
+    def mostrar_por_prioridad(self):
+        """Muestra los clientes agrupados por prioridad"""
+        if self.is_empty():
+            return "No hay clientes en cola"
+        
+        # Agrupar por prioridad
+        prioridades = {}
+        for cliente in self.items:
+            if isinstance(cliente, Cliente):
+                if cliente.prioridad not in prioridades:
+                    prioridades[cliente.prioridad] = []
+                prioridades[cliente.prioridad].append(cliente.nombre)
+        
+        resultado = "Clientes por prioridad:\n"
+        for prioridad in sorted(prioridades.keys()):
+            nivel = {1: "Urgente", 2: "Alta", 3: "Media", 4: "Baja"}.get(prioridad, f"Prioridad {prioridad}")
+            resultado += f"  {nivel} ({prioridad}): {', '.join(prioridades[prioridad])}\n"
+        
+        return resultado.strip()
 
     # Metodos adicionales
     

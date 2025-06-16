@@ -58,48 +58,58 @@ Tu elección: """
 cola_clientes = Cola()
 
 def clientes():
-    
-    try:
-        input_usuario = int(input(menu_clientes))
+    while True:
+        try:
+            input_usuario = int(input(menu_clientes))
+            print()  # Separador visual
 
-        if input_usuario == 1:
-            if cola_clientes.is_empty():
-                print("No hay clientes pendientes.")
-            else:
-                print("Clientes pendientes:")
-                for cliente in cola_clientes:
-                    print(f"- {cliente}")
-        
-        elif input_usuario == 2:
-            nombre_cliente = input("Introduce el nombre del cliente: ")
-            prioridad = int(input("Introduce la prioridad del cliente (1 Urgente - 4 Menos urgente): "))
-            nuevo_cliente = Cliente(nombre_cliente, prioridad)
-            cola_clientes.enqueue(nuevo_cliente)
-            print(f"Cliente '{nombre_cliente}' añadido con prioridad {prioridad}.")
-        
-        elif input_usuario == 3:
-            if cola_clientes.is_empty():
-                print("No hay clientes para atender.")
-            else:
-                cliente_atendido = cola_clientes.dequeue()
-                print(f"Cliente atendido: {cliente_atendido.nombre} con prioridad {cliente_atendido.prioridad}.")
-        
-        elif input_usuario == 4:
-            if cola_clientes.is_empty():
-                print("No hay clientes pendientes.")
-            else:
-                print("Clientes pendientes:")
-                for cliente in cola_clientes:
-                    print(f"- {cliente.nombre} (Prioridad: {cliente.prioridad})")
+            if input_usuario == 1:
+                if cola_clientes.is_empty():
+                    print("No hay clientes en la cola.")
+                else:
+                    print("Clientes en espera (orden de atención):")
+                    for idx, cliente in enumerate(cola_clientes, start=1):
+                        print(f"  {idx}. {cliente.nombre} (Prioridad: {cliente.prioridad})")
 
-        elif input_usuario == 5:
-            return
+            elif input_usuario == 2:
+                nombre_cliente = input("Introduce el nombre del cliente: ").strip()
+                if not nombre_cliente:
+                    print("El nombre no puede estar vacío.")
+                    continue
 
-    except Exception as e:
-        print(f"Error: {e}")
-        print("Entrada no válida. Por favor, ingresa un número.")
-        return
-    
+                prioridad = input("Introduce la prioridad (1: Urgente - 4: Normal): ").strip()
+                if not prioridad.isdigit() or not (1 <= int(prioridad) <= 4):
+                    print("Prioridad inválida. Debe ser un número entre 1 y 4.")
+                    continue
+
+                nuevo_cliente = Cliente(nombre_cliente, int(prioridad))
+                cola_clientes.enqueue(nuevo_cliente)
+                print(f"Cliente '{nombre_cliente}' añadido con prioridad {prioridad}.")
+
+            elif input_usuario == 3:
+                if cola_clientes.is_empty():
+                    print("No hay clientes para atender.")
+                else:
+                    cliente_atendido = cola_clientes.dequeue()
+                    niveles = {1: "Urgente", 2: "Alta", 3: "Media", 4: "Normal"}
+                    prioridad_txt = niveles.get(cliente_atendido.prioridad, cliente_atendido.prioridad)
+                    print(f"Atendiendo a: {cliente_atendido.nombre} (Prioridad: {prioridad_txt})")
+
+            elif input_usuario == 4:
+                print(cola_clientes.mostrar_por_prioridad())
+
+            elif input_usuario == 5:
+                print("Volviendo al menú principal...\n")
+                break
+
+            else:
+                print("Opción fuera de rango. Intenta con un número del 1 al 5.")
+
+        except ValueError:
+            print("Entrada inválida. Por favor, ingresa un número del 1 al 5.")
+        except Exception as e:
+            print(f"Error inesperado: {e}")
+
 
 menu_principal = """
 
@@ -131,3 +141,18 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# ------------------------------------------
+# Reflexión: ¿Cuándo usar Pilas y cuándo usar Colas?
+#
+# Las pilas (LIFO: Last In, First Out) son ideales cuando se necesita deshacer operaciones,
+# como en editores de texto, navegación hacia atrás en el historial o evaluación de expresiones.
+# El último elemento en entrar es el primero en salir.
+#
+# En cambio, las colas (FIFO: First In, First Out) son perfectas para gestionar procesos que
+# requieren orden de llegada, como atención al cliente, impresión de documentos o ejecución de tareas.
+# El primer elemento en entrar es el primero en salir.
+#
+# Elegir entre una pila o una cola depende del tipo de lógica que se quiere modelar:
+# ¿necesito retroceder pasos (pila) o atender en orden justo de llegada (cola)?
+# ------------------------------------------
