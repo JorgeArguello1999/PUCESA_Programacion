@@ -67,7 +67,6 @@ def clientes():
                 print("No hay clientes pendientes.")
             else:
                 print("Clientes pendientes:")
-                cola_clientes = sorted(cola_clientes.items, key=lambda x: x.prioridad)
                 for cliente in cola_clientes:
                     print(f"- {cliente}")
         
@@ -84,6 +83,14 @@ def clientes():
             else:
                 cliente_atendido = cola_clientes.dequeue()
                 print(f"Cliente atendido: {cliente_atendido.nombre} con prioridad {cliente_atendido.prioridad}.")
+        
+        elif input_usuario == 4:
+            if cola_clientes.is_empty():
+                print("No hay clientes pendientes.")
+            else:
+                print("Clientes pendientes:")
+                for cliente in cola_clientes:
+                    print(f"- {cliente.nombre} (Prioridad: {cliente.prioridad})")
 
         elif input_usuario == 5:
             return
