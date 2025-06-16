@@ -50,7 +50,8 @@ class Pila():
         return f"Pila({self.items})"
     
     def __iter__(self):
-        return iter(self.items)
+        items = self.items[::-1]
+        return iter(items)
     
     def __len__(self):
         return self.size()
@@ -63,14 +64,7 @@ class Cola():
         return len(self.items) == 0
 
     def enqueue(self, item):
-        insertado = False
-        for i in range(len(self.items)):
-            if item.prioridad > self.items[i].prioridad:
-                self.items.insert(i, item)
-                insertado = True
-                break
-        if not insertado:
-            self.items.append(item)
+        self.items.append(item)
 
     def dequeue(self):
         if not self.is_empty():

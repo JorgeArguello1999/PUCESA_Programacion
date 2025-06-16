@@ -61,17 +61,19 @@ def clientes():
     
     try:
         input_usuario = int(input(menu_clientes))
+
         if input_usuario == 1:
             if cola_clientes.is_empty():
-                print("No hay clientes prioritarios.")
+                print("No hay clientes pendientes.")
             else:
-                print("Clientes prioritarios:")
+                print("Clientes pendientes:")
+                cola_clientes = sorted(cola_clientes.items, key=lambda x: x.prioridad)
                 for cliente in cola_clientes:
                     print(f"- {cliente}")
-
+        
         elif input_usuario == 2:
             nombre_cliente = input("Introduce el nombre del cliente: ")
-            prioridad = int(input("Introduce la prioridad del cliente (0-10): "))
+            prioridad = int(input("Introduce la prioridad del cliente (1 Urgente - 4 Menos urgente): "))
             nuevo_cliente = Cliente(nombre_cliente, prioridad)
             cola_clientes.enqueue(nuevo_cliente)
             print(f"Cliente '{nombre_cliente}' añadido con prioridad {prioridad}.")
@@ -83,18 +85,11 @@ def clientes():
                 cliente_atendido = cola_clientes.dequeue()
                 print(f"Cliente atendido: {cliente_atendido.nombre} con prioridad {cliente_atendido.prioridad}.")
 
-        elif input_usuario == 4:
-            if cola_clientes.is_empty():
-                print("No hay clientes pendientes.")
-            else:
-                print("Clientes pendientes:")
-                for cliente in cola_clientes:
-                    print(f"- {cliente}")
-
         elif input_usuario == 5:
             return
 
-    except:
+    except Exception as e:
+        print(f"Error: {e}")
         print("Entrada no válida. Por favor, ingresa un número.")
         return
     
